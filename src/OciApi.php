@@ -68,12 +68,26 @@ class OciApi
     "createVnicDetails": {
         "assignPublicIp": false,
         "subnetId": "{$config->subnetId}",
-        "assignPrivateDnsRecord": true
+        "assignPrivateDnsRecord": true,
+        "assignIpv6Ip": false
     },
+    "isPvEncryptionInTransitEnabled": true,
     "agentConfig": {
         "pluginsConfig": [
             {
                 "name": "Compute Instance Monitoring",
+                "desiredState": "ENABLED"
+            },
+            {
+                "name": "Custom Logs Monitoring",
+                "desiredState": "ENABLED"
+            },
+            {
+                "name": "Cloud Guard Workload Protection",
+                "desiredState": "ENABLED"
+            },
+            {
+                "name": "Compute Instance Run Command",
                 "desiredState": "ENABLED"
             }
         ],
@@ -83,7 +97,7 @@ class OciApi
     "definedTags": {},
     "freeformTags": {},
     "instanceOptions": {
-        "areLegacyImdsEndpointsDisabled": false
+        "areLegacyImdsEndpointsDisabled": true
     },
     "availabilityConfig": {
         "recoveryAction": "RESTORE_INSTANCE"

@@ -99,13 +99,16 @@ foreach ($availabilityDomains as $availabilityDomainEntity) {
 //            if ($notifier->isSupported()) {
 //                $notifier->notify($message);
 //            }
-
+		if ($e->getCode() === 200 || $e->getCode() === 202) {
+			file_put_contents(__DIR__ . '/.success', date('c') . PHP_EOL, FILE_APPEND | LOCK_EX);
+		}
         if (
             $e->getCode() === 500 &&
             strpos($message, 'InternalError') !== false &&
             strpos($message, 'Out of host capacity') !== false
         ) {
-            // trying next availability domain
+            file_put_contents(__DIR__ . '/.error', date('c') . ' ' . $e->getCode() . ' - ' . $message . PHP_EOL, FILE_APPEND | LOCK_EX);
+			// trying next availability domain
             sleep(16);
             continue;
         }
