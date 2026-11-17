@@ -1,3 +1,7 @@
 vendor/
 .env
 config
+oci.log
+oci_cache.json
+.error
+.success
